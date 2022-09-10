@@ -22,7 +22,7 @@ function errorTypeByCode(errorType: errorData) {
         return (404);   
     if(errorType.code === 'UnprocessableEntity')
         return (422);   
-    if(errorType.code === 'Conflit')
+    if(errorType.code === 'Conflict')
         return (409);  
     if(errorType.code === 'Unauthorized')
         return (401);

@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import "express-async-errors";
 
+import router from "./routes/index.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
 
 dotenv.config()
@@ -10,6 +11,7 @@ dotenv.config()
 const server = express();
 server.use(json());
 server.use(cors());
+server.use(router);
 server.use(errorHandler);
 
 const port = Number(process.env.PORT) || 5000;

@@ -1,6 +1,7 @@
 {
   "name": "projeto19-drivenpass",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -13,16 +14,20 @@
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^4.0.0",
+    "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "express-async-errors": "^3.1.1",
     "joi": "^17.6.0",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^8.7.3"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
+    "@types/jsonwebtoken": "^8.5.9",
     "@types/node": "^17.0.24",
     "@types/pg": "^8.6.5",
     "nodemon": "^2.0.15",
