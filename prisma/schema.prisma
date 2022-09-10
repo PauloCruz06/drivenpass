@@ -14,4 +14,22 @@ model Users {
   id Int @id @default(autoincrement())
   email String @unique
   password String
+  credentials Credentials[]
+}
+
+model Sites {
+  id Int @id @default(autoincrement())
+  url String @unique
+  crendentials Credentials[]
+}
+
+model Credentials {
+  id Int @id @default(autoincrement())
+  user Users @relation(fields: [userId], references: [id])
+  userId Int
+  title String
+  userName String
+  url Sites @relation(fields: [credentialUrl], references: [url])
+  credentialUrl String
+  credentialPassword String
 }
