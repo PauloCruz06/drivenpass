@@ -9,3 +9,10 @@ export async function findAllUsers() {
     const result = await prisma.users.findMany();
     return result;
 }
+
+export async function findUserByEmail(email: string) {
+    const result = await prisma.users.findUnique({
+        where: {email},
+    });
+    return result;
+}
