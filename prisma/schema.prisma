@@ -20,7 +20,7 @@ model Users {
 model Sites {
   id Int @id @default(autoincrement())
   url String @unique
-  crendentials Credentials[]
+  credentials Credentials[]
 }
 
 model Credentials {
@@ -29,7 +29,7 @@ model Credentials {
   userId Int
   title String
   userName String
-  url Sites @relation(fields: [credentialUrl], references: [url])
-  credentialUrl String
+  credentialUrl Sites @relation(fields: [credentialUrlId], references: [id])
+  credentialUrlId Int
   credentialPassword String
 }
