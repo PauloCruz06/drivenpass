@@ -15,9 +15,9 @@ export default function tokenValidation(
         if(!token) return res.sendStatus(401);
         
         jwt.verify(token, process.env.SECRET || "secret", (e, decoded) => {
-            if(e) return res.status(401).send(e);
+            if(e) return res.status(401).send(e.message);
             
-            res.locals.userId = decoded;
+            res.locals.user = decoded;
             next()
         });
 }

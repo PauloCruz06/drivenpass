@@ -8,17 +8,18 @@ export async function findCredentialsByUserId(userId: number) {
     return result;
 }
 
-/*export async function findUrlbyUrl(url: string) {
+export async function findUrlbyUrl(url: string) {
     const result = await prisma.sites.findUnique({
         where: { url },
     });
     return result
-}*/
+}
 
 export async function insertCredential(credential: credentialData) {
     await prisma.credentials.create({ data: credential });
 }
 
 export async function insertUrl(url: string) {
-    await prisma.sites.create({ data: { url } })
+    const result = await prisma.sites.create({ data: { url } })
+    return result;
 }

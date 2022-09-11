@@ -3,28 +3,27 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
 import * as authRepository from "../repositories/authRepository.js";
-import { userData } from "../types/userType.js";
 
 dotenv.config();
 
-export async function signUp(body: userData) {
+export async function signUp(email: string, password: string) {
     const userList = await authRepository.findAllUsers();
-    if(userList.some(user => user.email === body.email))
+    if(userList.some(user => user.email === email))
         throw { code: 'Conflict', message: 'User already registered' };
     
-    const hashPassword = bcrypt.hashSync(body.password, 10);
+    const hashPassword = bcrypt.hashSync(password, 10);
     await authRepository.insertUser({
-        email: body.email,
+        email: email,
         password: hashPassword
     });
 }
 
-export async function login(body: userData) {
-    const user = await authRepository.findUserByEmail(body.email);
+export async function login(email: string, password: string) {
+    const user = await authRepository.findUserByEmail(email);
     if(!user)
         throw { code: 'NotFound', message: 'User not found' };
 
-    const compareHash = bcrypt.compareSync(body.password, user.password);
+    const compareHash = bcrypt.compareSync(password, user.password);
     if(!compareHash)
         throw { code: 'Unauthorized', message: 'Invalid password!' };
 
