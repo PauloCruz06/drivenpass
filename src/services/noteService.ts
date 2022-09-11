@@ -18,29 +18,24 @@ export async function registerNote(
 }
 
 export async function showUserNotes(userId: number) {
-    const userNoteslist = await
+    const userNotesList = await
         noteRepository.findNotesByUserId(userId);
-    verifyList(userNoteslist, "notes");
+    verifyList(userNotesList, "notes");
 
-    const notesList = userNoteslist.map(note => ({
-        userId: note.userId,
-        title: note.title,
-        note: note.note
-    }));
-
-    return notesList
+    return userNotesList;
 }
 
 export async function showNotebyId(noteId: number, userId: number) {
     const note = await verifyNoteOwner(noteId, userId);
 
-    const userNote = {
-        userId: note.userId,
-        title: note.title,
-        note: note.note
-    };
+    return note;
+}
 
-    return userNote;
+export async function deleteNote(noteId: number, userId: number) {
+    await verifyNoteOwner(noteId, userId);
+    const result = await noteRepository.removeNote(noteId);
+
+    return result;
 }
 
 async function verifyNoteOwner(noteId: number, userId: number) {

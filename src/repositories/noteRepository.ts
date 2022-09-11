@@ -9,7 +9,7 @@ export async function findNotesByUserId(userId: number) {
 }
 
 export async function findNoteById(noteId: number) {
-    const result =  await prisma.notes.findUnique({
+    const result = await prisma.notes.findUnique({
         where: {id: noteId},
     });
     return result;
@@ -17,4 +17,11 @@ export async function findNoteById(noteId: number) {
 
 export async function insertNote(note: noteData) {
     await prisma.notes.create({ data: note });
+}
+
+export async function removeNote(noteId: number) {
+    const result = await prisma.notes.delete({
+        where: { id: noteId },
+    });
+    return result;
 }

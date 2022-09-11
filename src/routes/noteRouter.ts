@@ -7,7 +7,8 @@ import tokenValidation from "../middlewares/tokenValidation.js";
 import {
     registerNote,
     showUserNotes,
-    showNotesbyId
+    showNotesbyId,
+    deleteNote,
 } from "../controller/noteController.js";
 
 const noteRouter = Router();
@@ -28,6 +29,12 @@ noteRouter.get(
     validateSchema(validateIdSchema),
     tokenValidation,
     showNotesbyId
+)
+noteRouter.delete(
+    "/remove/notes/:id",
+    validateSchema(validateIdSchema),
+    tokenValidation,
+    deleteNote
 )
 
 export default noteRouter;

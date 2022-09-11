@@ -41,6 +41,7 @@ export async function showUserCredentials(userId: number) {
     const urlList = await credentialRepository.findUrl();
     
     const credentialList = userCredentialList.map((credential) => ({
+        id: credential.id,
         userId: credential.userId,
         title: credential.title,
         userName: credential.userName,
@@ -57,6 +58,7 @@ export async function showCredentialbyId(id: number, userId: number) {
     const credential = await verifyCredentialOwner(id, userId);
     
     const userCredential = {
+        id: credential.id,
         userId: credential.userId,
         title: credential.title,
         userName: credential.userName,

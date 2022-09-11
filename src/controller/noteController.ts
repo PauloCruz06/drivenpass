@@ -27,3 +27,12 @@ export async function showNotesbyId(req: Request, res: Response) {
 
     res.status(200).send(userNote);
 }
+
+export async function deleteNote(req: Request, res: Response) {
+    const userId = res.locals.user.id;
+    const noteId = Number(req.params.id);
+
+    const result = await noteService.deleteNote(noteId, userId);
+
+    res.status(204).send(result);
+}

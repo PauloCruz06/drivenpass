@@ -35,5 +35,9 @@ export async function login(email: string, password: string) {
             expiresIn: 1800
         }
     );
-    return token;
+    return {
+        id: user.id,
+        email: user.email,
+        token
+    };
 }
