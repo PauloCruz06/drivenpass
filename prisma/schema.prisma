@@ -15,6 +15,7 @@ model Users {
   email String @unique
   password String
   credentials Credentials[]
+  notes Notes[]
 }
 
 model Sites {
@@ -32,4 +33,12 @@ model Credentials {
   credentialUrl Sites @relation(fields: [credentialUrlId], references: [id])
   credentialUrlId Int
   credentialPassword String
+}
+
+model Notes {
+  id Int @id @default(autoincrement())
+  user Users @relation(fields: [userId], references: [id])
+  userId Int
+  title String @db.VarChar(50)
+  note String @db.VarChar(1000)
 }
