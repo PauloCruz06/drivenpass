@@ -2,6 +2,7 @@ import Cryptr from "cryptr";
 import dotenv from "dotenv";
 
 import * as credentialRepository from "../repositories/credentialRepository.js";
+import { verifyTitle } from "./utils.js";
 
 dotenv.config();
 const cryptr = new Cryptr(process.env.SECRET || 'secret');
@@ -15,8 +16,7 @@ export async function registerCredential(
 ) {
     const userCredentialList = await
         credentialRepository.findCredentialsByUserId(userId);
-    if(userCredentialList.some(cred => cred.title === title))
-        throw { code: 'Conflict', message: 'Credential title already exist' };
+    verifyTitle(userCredentialList, title);
     
     let site = await credentialRepository.findUrlbyUrl(url);
     if(!site)
