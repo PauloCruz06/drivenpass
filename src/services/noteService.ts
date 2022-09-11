@@ -1,5 +1,5 @@
 import * as noteRepository from "../repositories/noteRepository.js";
-import { verifyTitle } from "./utils.js";
+import { verifyTitle, verifyList } from "./utils.js";
 
 export async function registerNote(
     userId: number,
@@ -15,4 +15,18 @@ export async function registerNote(
         title,
         note
     });
+}
+
+export async function showUserNotes(userId: number) {
+    const userNoteslist = await
+        noteRepository.findNotesByUserId(userId);
+    verifyList(userNoteslist, "notes");
+
+    const notesList = userNoteslist.map(note => ({
+        userId: note.userId,
+        title: note.title,
+        note: note.note
+    }));
+
+    return notesList
 }

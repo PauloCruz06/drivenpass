@@ -2,7 +2,7 @@ import Cryptr from "cryptr";
 import dotenv from "dotenv";
 
 import * as credentialRepository from "../repositories/credentialRepository.js";
-import { verifyTitle } from "./utils.js";
+import { verifyTitle, verifyList } from "./utils.js";
 
 dotenv.config();
 const cryptr = new Cryptr(process.env.SECRET || 'secret');
@@ -36,8 +36,7 @@ export async function registerCredential(
 export async function showUserCredentials(userId: number) {
     const userCredentialList = await
         credentialRepository.findCredentialsByUserId(userId);
-    if(!userCredentialList.length)
-        throw { code: 'NotFound', message: 'User credentials do not exist' };
+    verifyList(userCredentialList, 'credentials');
     
     const urlList = await credentialRepository.findUrl();
     
