@@ -12,3 +12,21 @@ export async function registerCredential(req: Request, res: Response) {
 
     res.sendStatus(201);
 }
+
+export async function showUserCredentials(req: Request, res: Response) {
+    const { id } = res.locals.user;
+    
+    const credentialList = await credentialService.showUserCredentials(id);
+
+    res.status(200).send(credentialList);
+}
+
+export async function showCredentialbyId(req: Request, res: Response) {
+    const user = res.locals.user;
+    const credentialId = Number(req.params.id);
+
+    const credential = await
+        credentialService.showCredentialbyId(credentialId, user.id);
+
+    res.status(200).send(credential);
+}

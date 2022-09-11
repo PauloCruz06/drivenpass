@@ -8,11 +8,30 @@ export async function findCredentialsByUserId(userId: number) {
     return result;
 }
 
+export async function findCredentialById(credentialId: number) {
+    const result = await prisma.credentials.findUnique({
+        where: { id: credentialId },
+    });
+    return result;
+}
+
+export async function findUrl() {
+    const result = await prisma.sites.findMany();
+    return result;
+}
+
+export async function findUrlbyId(id: number) {
+    const result = await prisma.sites.findUnique({
+        where: {id},
+    });
+    return result?.url;
+}
+
 export async function findUrlbyUrl(url: string) {
     const result = await prisma.sites.findUnique({
         where: { url },
     });
-    return result
+    return result;
 }
 
 export async function insertCredential(credential: credentialData) {
