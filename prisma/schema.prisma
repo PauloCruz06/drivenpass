@@ -16,6 +16,7 @@ model Users {
   password String
   credentials Credentials[]
   notes Notes[]
+  cards Cards[]
 }
 
 model Sites {
@@ -41,4 +42,24 @@ model Notes {
   userId Int
   title String @db.VarChar(50)
   note String @db.VarChar(1000)
+}
+
+model Cards {
+  id Int @id @default(autoincrement())
+  user Users @relation(fields: [userId], references: [id])
+  userId Int
+  title String
+  cardNumber String
+  cardName String
+  cardCVV String @db.VarChar(3)
+  dateExp String @db.VarChar(5)
+  password String
+  isVirtual Boolean
+  cardType CardType
+}
+
+enum CardType {
+  credit
+  debit
+  creditDebit
 }
