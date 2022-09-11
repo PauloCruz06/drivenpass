@@ -30,3 +30,26 @@ export async function showUserNotes(userId: number) {
 
     return notesList
 }
+
+export async function showNotebyId(noteId: number, userId: number) {
+    const note = await verifyNoteOwner(noteId, userId);
+
+    const userNote = {
+        userId: note.userId,
+        title: note.title,
+        note: note.note
+    };
+
+    return userNote;
+}
+
+async function verifyNoteOwner(noteId: number, userId: number) {
+    const note = await noteRepository.findNoteById(noteId);
+    
+    if(!note)
+        throw { code: 'NotFound', message: 'Note not found' };
+    if(note.userId !== userId)
+        throw { code: 'Unauthorized', message: 'User not allowed' };
+    
+    return note;
+}

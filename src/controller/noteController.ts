@@ -18,3 +18,12 @@ export async function showUserNotes(req: Request, res: Response) {
 
     res.status(200).send(userNoteslist);
 }
+
+export async function showNotesbyId(req: Request, res: Response) {
+    const userId = res.locals.user.id;
+    const noteId = Number(req.params.id);
+
+    const userNote = await noteService.showNotebyId(noteId, userId);
+
+    res.status(200).send(userNote);
+}

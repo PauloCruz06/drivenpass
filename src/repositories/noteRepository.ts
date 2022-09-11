@@ -8,6 +8,13 @@ export async function findNotesByUserId(userId: number) {
     return result;
 }
 
+export async function findNoteById(noteId: number) {
+    const result =  await prisma.notes.findUnique({
+        where: {id: noteId},
+    });
+    return result;
+}
+
 export async function insertNote(note: noteData) {
     await prisma.notes.create({ data: note });
 }
