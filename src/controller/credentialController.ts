@@ -30,3 +30,13 @@ export async function showCredentialbyId(req: Request, res: Response) {
 
     res.status(200).send(credential);
 }
+
+export async function deleteCredential(req: Request, res: Response) {
+    const user = res.locals.user;
+    const credentialId = Number(req.params.id);
+
+    const result = await
+        credentialService.deleteCredential(credentialId, user.id);
+    
+    res.status(204).send(result);
+}

@@ -39,6 +39,13 @@ export async function insertCredential(credential: credentialData) {
 }
 
 export async function insertUrl(url: string) {
-    const result = await prisma.sites.create({ data: { url } })
+    const result = await prisma.sites.create({ data: { url } });
+    return result;
+}
+
+export async function removeCredential(credentialId: number) {
+    const result = await prisma.credentials.delete({
+        where: { id: credentialId },
+    });
     return result;
 }

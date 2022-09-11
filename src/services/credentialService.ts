@@ -55,12 +55,7 @@ export async function showUserCredentials(userId: number) {
 }
 
 export async function showCredentialbyId(id: number, userId: number) {
-    const credential = await
-        credentialRepository.findCredentialById(id);
-    if(!credential)
-        throw { code: 'NotFound', message: 'Credential not found' };
-    if(userId !== credential.userId)
-        throw { code: 'Unauthorized', message: 'User not allowed' };
+    const credential = await verifyCredentialOwner(id, userId);
     
     const userCredential = {
         userId: credential.userId,
@@ -73,4 +68,23 @@ export async function showCredentialbyId(id: number, userId: number) {
     };
 
     return(userCredential);
+}
+
+export async function deleteCredential(id: number, userId: number) {
+    await verifyCredentialOwner(id, userId);
+    const result = await credentialRepository.removeCredential(id);
+
+    return result;
+}
+
+async function verifyCredentialOwner(credentialId: number, userId: number) {
+    const credential = await
+        credentialRepository.findCredentialById(credentialId);
+
+    if(!credential)
+        throw { code: 'NotFound', message: 'Credential not found' };
+    if(userId !== credential.userId)
+        throw { code: 'Unauthorized', message: 'User not allowed' };
+
+    return credential;
 }

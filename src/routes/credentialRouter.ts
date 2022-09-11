@@ -7,7 +7,8 @@ import tokenValidation from "../middlewares/tokenValidation.js";
 import {
     registerCredential,
     showUserCredentials,
-    showCredentialbyId
+    showCredentialbyId,
+    deleteCredential
 } from "../controller/credentialController.js";
 
 const credentialRoute = Router();
@@ -28,6 +29,12 @@ credentialRoute.get(
     validateSchema(validateIdSchema),
     tokenValidation,
     showCredentialbyId
-)
+);
+credentialRoute.delete(
+    "/remove/credentials/:id",
+    validateSchema(validateIdSchema),
+    tokenValidation,
+    deleteCredential
+);
 
 export default credentialRoute;
