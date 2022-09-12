@@ -51,8 +51,8 @@ model Cards {
   title String
   cardNumber String
   cardName String
-  cardCVV String @db.VarChar(3)
-  dateExp String @db.VarChar(5)
+  cardCVV String 
+  dateExp String 
   password String
   isVirtual Boolean
   cardType CardType
