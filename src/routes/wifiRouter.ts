@@ -1,9 +1,14 @@
 import { Router } from "express";
 
 import { validateSchema } from "../middlewares/validateSchema.js";
+import validateIdSchema from "../schemas/validateIdSchema.js";
 import wifiSchema from "../schemas/wifiSchema.js";
 import tokenValidation from "../middlewares/tokenValidation.js";
-import { registerWifi } from "../controller/wifiController.js";
+import {
+    registerWifi,
+    showUserWifis,
+    showWifiById
+} from "../controller/wifiController.js";
 
 const wifiRouter = Router();
 
@@ -13,5 +18,16 @@ wifiRouter.post(
     tokenValidation,
     registerWifi
 );
+wifiRouter.get(
+    "/wifis",
+    tokenValidation,
+    showUserWifis
+);
+wifiRouter.get(
+    "/wifis/:id",
+    validateSchema(validateIdSchema),
+    tokenValidation,
+    showWifiById
+)
 
 export default wifiRouter;
