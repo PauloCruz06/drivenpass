@@ -12,10 +12,16 @@ export async function findWifiById(wifiId: number) {
     const result = await prisma.wiFis.findUnique({
         where: { id: wifiId },
     })
-
     return result;
 }
 
-export async function  insertWifi(wifi: wifiData) {
+export async function insertWifi(wifi: wifiData) {
     await prisma.wiFis.create({ data: wifi });
+}
+
+export async function removeWifi(wifiId: number) {
+    const result = await prisma.wiFis.delete({
+        where: { id: wifiId },
+    });
+    return result;
 }

@@ -41,6 +41,14 @@ export async function showWifiById(wifiId: number, userId: number) {
     }
 }
 
+export async function removeWifi(wifiId: number, userId: number) {
+    await verifyWifiOwner(wifiId, userId);
+
+    const result = await wifiRepository.removeWifi(wifiId);
+
+    return result;
+}
+
 async function verifyWifiOwner(wifiId: number, userId: number) {
     const wifi = await wifiRepository.findWifiById(wifiId);
 

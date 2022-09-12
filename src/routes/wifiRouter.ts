@@ -7,7 +7,8 @@ import tokenValidation from "../middlewares/tokenValidation.js";
 import {
     registerWifi,
     showUserWifis,
-    showWifiById
+    showWifiById,
+    removeWifi
 } from "../controller/wifiController.js";
 
 const wifiRouter = Router();
@@ -28,6 +29,12 @@ wifiRouter.get(
     validateSchema(validateIdSchema),
     tokenValidation,
     showWifiById
+)
+wifiRouter.delete(
+    "/remove/wifis/:id",
+    validateSchema(validateIdSchema),
+    tokenValidation,
+    removeWifi
 )
 
 export default wifiRouter;
