@@ -27,3 +27,12 @@ export async function showCardById(req: Request, res: Response) {
 
     res.status(200).send(card);
 }
+
+export async function deleteCard(req: Request, res: Response) {
+    const userId = res.locals.user.id;
+    const cardId = Number(req.params.id);
+
+    const result = await cardService.deleteCard(cardId, userId);
+
+    res.status(204).send(result);
+}

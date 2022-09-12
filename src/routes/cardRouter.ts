@@ -7,7 +7,8 @@ import tokenValidation from "../middlewares/tokenValidation.js";
 import {
     registerCard,
     showUserCards,
-    showCardById
+    showCardById,
+    deleteCard
 } from "../controller/cardController.js";
 
 const cardRouter = Router();
@@ -28,6 +29,12 @@ cardRouter.get(
     validateSchema(validateIdSchema),
     tokenValidation,
     showCardById
+)
+cardRouter.delete(
+    "/remove/cards/:id",
+    validateSchema(validateIdSchema),
+    tokenValidation,
+    deleteCard
 )
 
 export default cardRouter;

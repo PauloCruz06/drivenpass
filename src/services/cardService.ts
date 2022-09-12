@@ -37,7 +37,7 @@ export async function showUserCards( userId: number) {
     return cardList;
 }
 
-export async function showCardById( cardId: number, userId: number ) {
+export async function showCardById(cardId: number, userId: number) {
     const card = await verifyCardOwner(cardId, userId);
 
     const userCard = {
@@ -47,6 +47,13 @@ export async function showCardById( cardId: number, userId: number ) {
     };
 
     return userCard;
+}
+
+export async function deleteCard(cardId: number, userId: number) {
+    await verifyCardOwner(cardId, userId);
+    const result = await cardRepository.removeCard(cardId);
+
+    return result;
 }
 
 async function verifyCardOwner(cardId: number, userId: number) {
